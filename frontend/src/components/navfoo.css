@@ -1,0 +1,177 @@
+.navbar{
+    position: sticky;
+    top: 0;
+    padding-block: 14px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.15);
+    z-index: 10;
+    background: #fff;
+}
+.navbar .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .container .logo img{
+    width: 120px;
+}
+
+.navbar .container .links{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .container .links li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+.navbar .container .links li:hover{
+    background: rgb(234, 234, 234);
+}
+.navbar .container .link{
+    color: inherit;
+    font-size: 16px;
+    font-weight:400;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .container .userInfo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.navbar .container .userInfo li:nth-child(1){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+.navbar .container .userInfo li:nth-child(1) img{
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid #787878;
+}
+
+.navbar .container .userInfo .unlogin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: 2rem;
+}
+.navbar .container .userInfo .unlogin{
+    border-radius: 5px;
+}
+.navbar .container .userInfo .unlogin:nth-child(1){
+    background: #dddddd;
+}
+.navbar .container .userInfo .unlogin:nth-child(2){
+    background: rgb(19, 19, 19);
+    color: #fff;
+}
+
+.navbar .container span{
+    cursor: pointer;
+}
+
+.navbar .container .write{
+    background: var(--lightGreen);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+}
+
+.navbar .container .write:hover{
+    color: teal;
+    background: white;
+    border: 1px solid teal;
+}
+
+
+footer{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+    font-weight: 500;
+}
+
+footer .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #1a4349;
+    border-bottom: 1px solid #1a4349;
+}
+
+footer .info{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 6rem;
+    padding-bottom: 12rem;
+    width: 1000px;
+    color: #4b4b4b;
+}
+
+footer .content .footer-logo{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+footer .content .footer-links{
+    display: flex;
+    justify-content: space-around;
+    align-items: self-start;
+    text-align: start;
+    flex-direction: row;
+    flex: 3;
+}
+.footer-links h1{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #000000;
+}
+.footer-links li{
+    font-size: 16px;
+    font-weight: 450;
+    margin-bottom: 1rem;
+}
+
+footer img{
+    height: 50px;
+}
+
+footer .copy{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-inline: 3rem;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+footer .copy .links{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
