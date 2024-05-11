@@ -1,6 +1,6 @@
 # Blog de usuarios
 
-![](https://leonidasvalen.github.io/Portfolio/img/blog.png)
+<img src="https://leonidasvalen.github.io/Portfolio/img/blog.png" style="-max-height:150px;">
 
 
 
