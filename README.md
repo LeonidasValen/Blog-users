@@ -1,7 +1,7 @@
 # Blog de usuarios
-
+<div align="center">
 <img src="https://leonidasvalen.github.io/Portfolio/img/blog.png" height="800px">
-
+</div>
 
 
 ## Para poder echar un vistazo lo podes descargar
