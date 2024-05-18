@@ -33,7 +33,7 @@ export const getAllPost = async (req, res) => {
         return res.status(200).json(results);
     } catch (error) {
         console.error("Error al ejecutar la consulta:", error);
-        return res.status(500).json({ error: "Error interno del servidor" });
+        return res.status(500).json({ message: "Error interno del servidor" });
     }
 };
 
@@ -51,104 +51,62 @@ export const getPost = async (req,res)=>{
         return res.status(200).json(results[0]);
     } catch (error) {
         console.error("Error al ejecutar la consulta:", error);
-        return res.status(500).json({ error: "Error interno del servidor" });
+        return res.status(500).json({ message: "Error interno del servidor" });
     }
 }
 
 export const addPost = async (req,res)=>{
     try {
-        let token;
-        if (req.cookies.token) {
-            token = req.cookies.token;
-        } else if (req.headers.authorization) {
-            token = req.headers.authorization.split(' ')[1];
-        }
-        if (!token) {
-            return res.status(401).json({ error: "No estás autenticado" });
-        }
 
-        jwt.verify(token, process.env.JWT_TOKEN, async(error, userInfo)=>{
-            if(error){
-                return res.status(403).json("Token no valido")
-            }
-            const db = await connectToDatabase();
-            //console.log(userInfo)
-            const { title, descrip, cat, date } = req.body;
-            let cover = null;
-            if (req.file) {
-                cover = req.file.filename;
-            }else{
-                return res.status(400).json({ error: "la imagen es invalida" });
-            }
-            if (!title || !descrip || !cat || !cover || !date) {
-                return res.status(400).json({ error: "Se requieren todos los campos" });
-            }
-            
-            const sql = await db.query("INSERT INTO posts(title, `descrip`, img, cat, date, uid) VALUES (?, ?, ?, ?, ?, ?)", [title, descrip, cover, cat, date, userInfo.userId]);
+        const db = await connectToDatabase();
+        //console.log(userInfo)
+        const { title, descrip, cat, date } = req.body;
+        let cover = null;
+        if (req.file) {
+            cover = req.file.filename;
+        }else{
+            return res.status(400).json({ message: "la imagen es invalida" });
+        }
+        if (!title || !descrip || !cat || !cover || !date) {
+            return res.status(400).json({ message: "Se requieren todos los campos" });
+        }
+        
+        const sql = await db.query("INSERT INTO posts(title, `descrip`, img, cat, date, uid) VALUES (?, ?, ?, ?, ?, ?)", [title, descrip, cover, cat, date, userInfo.userId]);
+        return res.status(200).json({ message: "Publicación creada exitosamente" });
 
-            return res.status(200).json({ message: "Publicación creada exitosamente" });
-        })
     } catch (error) {
         console.error("Error al ejecutar la consulta:", error);
         if (req.file) {
             fs.unlinkSync(req.file.path);
         }
-        return res.status(500).json({ error: "Error interno del servidor" });
+        return res.status(500).json({ message: "Error interno del servidor" });
     }
 }
 
 export const deletePost =  async (req,res)=>{
     try {
-        let token;
-        if (req.cookies.token) {
-            token = req.cookies.token;
-        } else if (req.headers.authorization) {
-            token = req.headers.authorization.split(' ')[1];
-        }
-        if (!token) {
-            return res.status(401).json({ error: "No estás autenticado" });
-        }
-        
-        jwt.verify(token, process.env.JWT_TOKEN, async(error, userInfo)=>{
-            if(error){
-                return res.status(403).json("Token no valido")
-            }
             const postId = req.params.id
             const db = await connectToDatabase();
             //console.log(userInfo)
 
+            //verifica que exista el post
             const [existingPost] = await db.query("SELECT id FROM posts WHERE id = ?", [postId]);
-            if (existingPost.length === 0) {
-                return res.status(404).json("El post no existe");
-            }
+            if (existingPost.length === 0) return res.status(404).json("El post no existe");
             
+            //borra el post
             const [result] = await db.query("DELETE FROM posts WHERE id = ? AND uid = ?", [postId, userInfo.userId]);
-            if (result.affectedRows === 0) {
-                return res.status(500).json("Error interno al borrar");
-            }
-            return res.status(200).json("borrado exitosamente");
-        })
+            if (result.affectedRows === 0) return res.status(500).json("Error interno al borrar");
+            
+            return res.status(200).json({message: "borrado exitosamente"});
     } catch (error) {
         console.error("Error al borrar el post:", error);
-        return res.status(500).json({ error: "Error interno del servidor" });
+        return res.status(500).json({ message: "Error interno del servidor" });
     }
 }
 
 export const updatePost = async(req,res)=>{
     try {
-        let token;
-        if (req.cookies.token) {
-            token = req.cookies.token;
-        } else if (req.headers.authorization) {
-            token = req.headers.authorization.split(' ')[1];
-        }
-        if (!token) {
-            return res.status(401).json({ error: "No estás autenticado" });
-        }
-        jwt.verify(token, process.env.JWT_TOKEN, async(error, userInfo)=>{
-            if(error){
-                return res.status(403).json("Token no valido")
-            }
+
         const { title, descrip, cat, date } = req.body;
         // Verificar si se adjuntó una nueva imagen
         let cover = null;
@@ -156,7 +114,7 @@ export const updatePost = async(req,res)=>{
             cover = req.file.filename;
         }
         if (!title || !descrip || !cat || !date) {
-            return res.status(400).json({ error: "Se requieren todos los campos" });
+            return res.status(400).json({ message: "Se requieren todos los campos" });
         }
 
         const postId = req.params.id
@@ -170,12 +128,12 @@ export const updatePost = async(req,res)=>{
         // console.log(postId)
         // console.log(title, descrip, cat, date, cover)
         return res.status(200).json({ message: "Publicación actualizada exitosamente" });
-        })
+        
     } catch (error) {
         if (req.file) {
             fs.unlinkSync(req.file.path);
         }
         console.error("Error al ejecutar la consulta:", error);
-        return res.status(500).json({ error: "Error interno del servidor" });
+        return res.status(500).json({ message: "Error interno del servidor" });
     }
 }

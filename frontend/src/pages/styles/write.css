@@ -1,7 +1,9 @@
 .add{
-    margin-top: 20px;
+    margin-top: 2rem;
     display: flex;
     gap: 20px;
+    max-width: 1200px;
+    margin-inline: auto;
 }
 
 .add .content{

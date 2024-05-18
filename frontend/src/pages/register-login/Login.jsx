@@ -52,23 +52,9 @@ export function Login({logo}) {
       navigate('/')
       
     } catch (error) {
-      //console.error('Error al registrar usuario:', error);
-      console.error('Error al iniciar sesion del usuario', error);
-      if (error.response && error.response.data) {
-        const errMessage = error.response.data;
-        const errorMessage = error.response.data.error;
-        if (errorMessage === 'Correo o contraseña incorrecto') {
-          setErrors({ form: 'Correo o contraseña incorrecto' });
-        } else if (errMessage === 'Demasiados intentos de inicio de sesión. Por favor, inténtalo de nuevo más tarde.') {
-          setErrors({ form: 'Demasiados intentos de inicio de sesión. Por favor, inténtalo de nuevo más tarde.' });
-        } else {
-          // Si no es ninguno de los errores anteriores, simplemente establece el mensaje de error general
-          setErrors({ form: 'Error al iniciar sesión. Inténtelo de nuevo.' });
-        }
-      } else {
-        // Si no hay un error específico del backend
-        setErrors({ form: 'Error al conectarse con el servidor.' });
-        console.error('Error al iniciar sesion');
+      console.error('Error al iniciar sesion del usuario', error.message);
+      if (error.response) {
+        setErrors({ form: 'Error al conectarse con el servidor.'});
       }
     }
   }

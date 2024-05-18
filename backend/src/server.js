@@ -1,19 +1,7 @@
-import cors from 'cors'
-import cookieParcer from 'cookie-parser'
 import app from "./app.js";
 import menuRouter from "../routes/menu.routes.js";
 import authRouter from "../routes/auth.routes.js";
 import postRouter from "../routes/posts.routes.js";
-
-//limita las autorizaciones  al servidor
-const corsOptions = {
-    origin: ['http://localhost:5173', 'http://localhost:4173'],// URL de las paginas que pueda hacer operaciones 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Limita los métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Limita los encabezados permitidos
-    credentials: true, // Habilita el uso de credenciales (cookies, encabezados de autorización, etc.)
-};
-app.use(cors(corsOptions));
-app.use(cookieParcer())
 
 //Midlewares
 app.use("/api/user", authRouter)

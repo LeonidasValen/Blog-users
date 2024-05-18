@@ -13,7 +13,7 @@ export const getPostsMenu = async (req, res) => {
         let params = [];
 
         if (category) {
-            sql += " WHERE cat=? AND id <> ? LIMIT ?";
+            sql += " WHERE cat=? AND id != ? LIMIT ?";
             params.push(category, postId, limit);
         }else{
             return res.status(204).json({ message: "No hay contenido para mostrar" });

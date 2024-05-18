@@ -50,9 +50,8 @@ export function Home() {
           setLoading (false)
         } catch (error) {
           setLoading(false); 
-          setError(error);
-          console.log(error.response)
-          console.error(error);
+          setError(error.message);
+          console.error(error.message);
         }
       }
       fetchPosts()
@@ -64,7 +63,7 @@ export function Home() {
     }
 
     if (error) {
-      return <h1>Error: {error.message}</h1>; 
+      return <h1>Error: {error}</h1>; 
     }
 
     return (
