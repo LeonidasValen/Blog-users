@@ -53,11 +53,10 @@ export function Login({logo}) {
       
     } catch (error) {
       console.error('Error al iniciar sesion del usuario', error.message);
-      if (error.response) {
-        setErrors({ form: 'Error al conectarse con el servidor.'});
-      }
+      if(error.response.status === 500) setErrors({form:'Error al conectarse con el servidor.'})
+      setErrors({form: error.response.status === 404 ? error.response.data.message : 'Error en la verificacion intentelo de nuevo'})
     }
-  }
+  } 
 
     return (
       <section className="auth login">

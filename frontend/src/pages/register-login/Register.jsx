@@ -54,19 +54,9 @@ export function Register({logo}) {
       navigate('/login')
     } catch (error) {
       //console.error('Error al registrar usuario:', error);
-      console.error('Error al registrar usuario');
-      if (error.response && error.response.data) {
-          const errorMessage = error.response.data.error; // Corrección aquí
-          if (errorMessage === 'El Correo o el Nombre del usuario ya esta registrado') {
-              setErrors({ email: 'El Correo o el Nombre del usuario ya esta registrado' });
-          } else {
-              setErrors({ form: 'Error al registrar usuario. Inténtelo de nuevo.' });
-          }
-      } else {
-          // Si no hay un error específico del backend
-          setErrors({ form: 'Error al conectarse con el servidor.' });
-          console.error('Error al registrar usuario');
-      } 
+      console.error('Error al registrar usuario', error.message);
+      if(error.response.status === 500) setErrors({form:'Error al conectarse con el servidor.'})
+      setErrors({form: error.response.status === 409 ? error.response.data.message : 'Error en la verificacion intentelo de nuevo'})
     }
   }
 

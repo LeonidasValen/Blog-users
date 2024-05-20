@@ -54,7 +54,7 @@ export function Single() {
     return (
     <main className="single">
       <div className='content'>
-        <h1>Error {error}</h1>
+        <h1>Error: {error}</h1>
       </div>
       <Menu/>
     </main>)

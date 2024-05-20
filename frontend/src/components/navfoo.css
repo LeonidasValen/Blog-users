@@ -102,7 +102,20 @@
     color: teal;
     background: white;
     border: 1px solid teal;
+    transition: 0.3s;
 }
+
+/* @keyframes circle{
+    0%{
+
+    }
+    50%{
+
+    }
+    100%{
+
+    }
+} */
 
 
 footer{
